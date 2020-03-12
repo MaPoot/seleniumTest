@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.opentest4j.AssertionFailedError;
 import steps.DemoInputField;
 
-import java.util.*;
 import java.util.logging.Logger;
 
 public class TestSimple {
@@ -59,42 +58,6 @@ public class TestSimple {
             logger.info(e.getMessage());
             throw e;
         }
-    }
-
-    @Test
-    public void setTest(){
-        Set<String> setTest = new HashSet<>();
-
-        setTest.add("Hi");
-        setTest.add("Hi2");
-        setTest.add("Hi");
-        setTest.add("Hi");
-
-        System.out.println(setTest);
-
-    }
-
-    @Test
-    public void collectionTest(){
-        SortedSet<String> set = new TreeSet<>();
-
-        set.add("Ravi");
-        set.add("Vijay");
-        set.add("Ravi");
-        set.add("Ajay");
-
-        System.out.println(set);
-    }
-
-    @Test
-    public void listTest(){
-        ArrayList<String> list=new ArrayList<String>();
-        list.add("Ravi");
-        list.add("Vijay");
-        list.add("Ravi");
-        list.add("Ajay");
-
-        System.out.println(list);
     }
 
     @AfterEach
