@@ -1,13 +1,15 @@
 package main;
 
+import driveManager.DriverManager;
 import steps.DemoInputField;
+import steps.ExpediaSteps;
 
 public class Start {
     public static void main(String args[]) throws Exception {
-        DemoInputField demo;
+        ExpediaSteps demo;
 
-        demo = new DemoInputField();
-        demo.showMessage();
-        demo.close();
+        demo = new ExpediaSteps();
+        demo.runExpediaPage();
+        DriverManager.close();
     }
 }
