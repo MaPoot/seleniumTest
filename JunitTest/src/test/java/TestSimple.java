@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.opentest4j.AssertionFailedError;
 import steps.DemoInputField;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -95,6 +96,29 @@ public class TestSimple {
         list.add("Ajay");
 
         System.out.println(list);
+    }
+
+    @ParameterizedTest
+    @ValueSource (ints = {})
+    public void order(int [] data){
+        //int[] data = {2,3,5,4,6,8,9};
+        Ordenar order = new Ordenar();
+
+        data = order.ordenar(data);
+
+        boolean ban = true;
+
+        for (int i=0; i < data.length - 1; i++) {
+            if(data[i] <= data[i+1]){
+                //System.out.printf("ok");
+            }else{
+                ban = false;
+                Assertions.assertTrue(ban);
+                break;
+            }
+        }
+
+        System.out.printf("Ordenado de menor a mayor");
     }
 
     @AfterEach
