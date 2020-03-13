@@ -13,7 +13,7 @@ public abstract class DriverManager {
     Launch browser
      */
     public static WebDriver launchBrowser(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\abelardo.canche\\Documents\\GitHub\\seleniumTest\\Selenium\\src\\main\\resources\\WebDrivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "../Selenium/src/main/resources/WebDrivers/chromedriver.exe");
         driver = new ChromeDriver();
 
         driver.manage().deleteAllCookies();

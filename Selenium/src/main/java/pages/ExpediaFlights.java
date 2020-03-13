@@ -21,11 +21,15 @@ public class ExpediaFlights extends PageObject {
     public void selectFromDropdown(String selection){
         Select dropDown = new Select(driver.findElement(By.id(idSortDropdown)));
         dropDown.selectByVisibleText(selection);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Integer> getPrices(){
         List<Integer> price_list = new ArrayList<>();
-
         for(WebElement price : prices){
             Integer price_u = Integer.parseInt(price.getText().trim().replace("$","").replace(",", ""));
             price_list.add(price_u);

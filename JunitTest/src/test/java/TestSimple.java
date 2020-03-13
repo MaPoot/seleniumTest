@@ -1,3 +1,4 @@
+import driveManager.DriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -5,13 +6,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.opentest4j.AssertionFailedError;
 import steps.DemoInputField;
+import steps.ExpediaSteps;
 
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public class TestSimple {
     private static final Logger logger = Logger.getLogger(TestSimple.class.getName());
@@ -99,31 +104,61 @@ public class TestSimple {
     }
 
     @ParameterizedTest
-    @ValueSource (ints = {})
-    public void order(int [] data){
-        //int[] data = {2,3,5,4,6,8,9};
-        Ordenar order = new Ordenar();
-
-        data = order.ordenar(data);
-
+    @MethodSource({"generateData", "getFlightPrices"})
+    public void order(List<Integer> data){
         boolean ban = true;
 
-        for (int i=0; i < data.length - 1; i++) {
-            if(data[i] <= data[i+1]){
-                //System.out.printf("ok");
-            }else{
+        for (int i=1; i < data.size() - 1; i++) {
+            if(data.get(i) > data.get(i+1)){
                 ban = false;
-                Assertions.assertTrue(ban);
                 break;
             }
         }
 
-        System.out.printf("Ordenado de menor a mayor");
+        Assertions.assertTrue(ban, String.format("No ordenado %s", data.toString()));
+        System.out.println("Ordenado de mayor a mayor " + data);
+    }
+
+    @ParameterizedTest
+    @MethodSource({"getFlightPrices"})
+    public void pricesOrderedMayorMinor(List<Integer> data){
+        boolean ban = true;
+
+        for (int i=1; i < data.size() - 1; i++) {
+            if(data.get(i) < data.get(i+1)){
+                ban = false;
+                break;
+            }
+        }
+
+        Assertions.assertTrue(ban, String.format("No ordenado %s", data.toString()));
+        System.out.println("Ordenado de mayor a mayor " + data);
+    }
+
+
+    static Stream<Arguments> generateData() {
+        int [] data = {1,3,2,5};
+        Ordenar ordenar = new Ordenar();
+        List<Integer> data_list = ordenar.ordenar(data);
+
+
+        return Stream.of(
+                Arguments.of(data_list)
+        );
+    }
+
+    static Stream<Arguments> getFlightPrices() {
+        ExpediaSteps expediaSteps = new ExpediaSteps();
+        List<Integer> data_list = expediaSteps.runExpediaPage();
+
+        return Stream.of(
+                Arguments.of(data_list)
+        );
     }
 
     @AfterEach
     public void tearDownTest(){
-
+        DriverManager.close();
     }
 
     @AfterAll

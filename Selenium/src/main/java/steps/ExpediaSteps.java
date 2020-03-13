@@ -11,7 +11,7 @@ public class ExpediaSteps {
 
     private WebDriver driver;
 
-    public void runExpediaPage(){
+    public List<Integer> runExpediaPage(){
         driver = DriverManager.launchBrowser();
         driver.get("https://www.expedia.com/");
 
@@ -29,5 +29,7 @@ public class ExpediaSteps {
         List<Integer> prices = expediaFlights.getPrices();
 
         System.out.println(prices);
+
+        return prices;
     }
 }
