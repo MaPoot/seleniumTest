@@ -104,7 +104,7 @@ public class TestSimple {
     }
 
     @ParameterizedTest
-    @MethodSource({"generateData", "getFlightPrices"})
+    @MethodSource({"generateData"})
     public void order(List<Integer> data){
         boolean ban = true;
 
@@ -116,7 +116,7 @@ public class TestSimple {
         }
 
         Assertions.assertTrue(ban, String.format("No ordenado %s", data.toString()));
-        System.out.println("Ordenado de mayor a mayor " + data);
+        System.out.println("Ordenado de menor a mayor " + data);
     }
 
     @ParameterizedTest
@@ -132,7 +132,7 @@ public class TestSimple {
         }
 
         Assertions.assertTrue(ban, String.format("No ordenado %s", data.toString()));
-        System.out.println("Ordenado de mayor a mayor " + data);
+        System.out.println("Ordenado de mayor a menor " + data);
     }
 
 
