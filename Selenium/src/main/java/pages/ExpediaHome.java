@@ -22,7 +22,7 @@ public class ExpediaHome extends PageObject {
     private WebElement departureDate;
     @FindBy (id = "flight-returning-hp-flight")
     private WebElement returningDate;
-    @FindBy (xpath = "//span[contains(text(), 'Search')]")
+    @FindBy (xpath = "(//button[@type='submit' and @class = 'btn-primary btn-action gcw-submit'])[1]")
     private WebElement searchButton;
 
     public ExpediaHome(WebDriver driver) {
@@ -35,55 +35,24 @@ public class ExpediaHome extends PageObject {
 
     public void sendFromImput(String from){
         fromInput.sendKeys(from);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         fromInput.sendKeys(Keys.TAB);
     }
 
     public void sendDestinationInput(String destination){
         destinationInput.sendKeys(destination);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         destinationInput.sendKeys(Keys.TAB);
     }
 
     public void sendDepartureDate(String date) {
         departureDate.sendKeys(date);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        departureDate.sendKeys(Keys.TAB);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        destinationInput.sendKeys(Keys.TAB);
     }
 
     public void sendReturningDate(String date){
         returningDate.sendKeys(date);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        returningDate.sendKeys(Keys.TAB);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void clickSearchButton(){
-        returningDate.sendKeys(Keys.ENTER);
+        searchButton.click();
     }
 }

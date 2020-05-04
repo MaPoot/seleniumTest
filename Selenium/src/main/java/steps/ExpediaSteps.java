@@ -1,7 +1,9 @@
 package steps;
 
 import driveManager.DriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pages.ExpediaFlights;
 import pages.ExpediaHome;
 
@@ -17,14 +19,16 @@ public class ExpediaSteps {
 
         ExpediaHome expediaHome = new ExpediaHome(driver);
 
+        expediaHome.waitForLoad();
         expediaHome.clickFlightButton();
-        expediaHome.sendDepartureDate("04/14/2020");
-        expediaHome.sendReturningDate("04/17/2020");
         expediaHome.sendFromImput("Mex");
         expediaHome.sendDestinationInput("Cun");
+        expediaHome.sendReturningDate("05/17/2020");
+        expediaHome.sendDepartureDate("05/14/2020");
         expediaHome.clickSearchButton();
 
         ExpediaFlights expediaFlights = new ExpediaFlights(driver);
+        expediaFlights.waitForLoad();
         expediaFlights.selectFromDropdown("Price (Highest)");
         List<Integer> prices = expediaFlights.getPrices();
 
