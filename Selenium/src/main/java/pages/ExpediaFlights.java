@@ -13,7 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpediaFlights extends PageObject {
-    private String idSortDropdown = "sortDropdown";
+    @FindBy (id = "sortDropdown")
+    private WebElement dropDown;
+    @FindBy (id = "listings-sort")
+    private WebElement dropDownOtherName;
     @FindBy(xpath = "//span[@data-test-id='listing-price-dollars']")
     private List<WebElement> prices;
 
@@ -22,7 +25,14 @@ public class ExpediaFlights extends PageObject {
     }
 
     public void selectFromDropdown(String selection){
-        Select dropDown = new Select(driver.findElement(By.id(idSortDropdown)));
+        Select dropDown;
+
+        try{
+            dropDown = new Select(this.dropDown);
+        }catch (Exception e){
+            dropDown = new Select(this.dropDownOtherName);
+        }
+
         dropDown.selectByVisibleText(selection);
         try {
             Thread.sleep(2500);
@@ -41,3 +51,4 @@ public class ExpediaFlights extends PageObject {
         return price_list;
     }
 }
+

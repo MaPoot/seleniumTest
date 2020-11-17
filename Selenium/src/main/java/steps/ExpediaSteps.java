@@ -11,21 +11,30 @@ import java.util.List;
 
 public class ExpediaSteps {
 
-    private WebDriver driver;
-
     public List<Integer> runExpediaPage(){
-        driver = DriverManager.launchBrowser();
+        WebDriver driver = DriverManager.launchBrowser();
         driver.get("https://www.expedia.com/");
 
         ExpediaHome expediaHome = new ExpediaHome(driver);
-
         expediaHome.waitForLoad();
-        expediaHome.clickFlightButton();
-        expediaHome.sendFromImput("Mex");
-        expediaHome.sendDestinationInput("Cun");
-        expediaHome.sendReturningDate("05/17/2020");
-        expediaHome.sendDepartureDate("05/14/2020");
-        expediaHome.clickSearchButton();
+
+        boolean alert = true;
+
+        while(alert){
+            expediaHome.clickFlightButton();
+            expediaHome.sendFromImput("Mex");
+            expediaHome.sendDestinationInput("Cun");
+            expediaHome.openDatePicker();
+            expediaHome.sendReturningDate("10");
+            expediaHome.sendDepartureDate("18");
+            expediaHome.clickDoneButton();
+            expediaHome.clickSearchButton();
+            if(alert = expediaHome.checkForIncompleteAlert()){
+                System.out.println("Retying");
+            }else{
+                System.out.println("Continue to next page...");
+            }
+        }
 
         ExpediaFlights expediaFlights = new ExpediaFlights(driver);
         expediaFlights.waitForLoad();

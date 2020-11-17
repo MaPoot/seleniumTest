@@ -9,7 +9,13 @@ public class Start {
         ExpediaSteps demo;
 
         demo = new ExpediaSteps();
-        demo.runExpediaPage();
+        try{
+            demo.runExpediaPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         DriverManager.close();
+        System.out.println("Driver is closed");
     }
 }

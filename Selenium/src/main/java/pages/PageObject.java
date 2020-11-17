@@ -1,5 +1,6 @@
 package pages;
 
+import Utils.Utils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -14,9 +15,11 @@ import java.util.NoSuchElementException;
 
 public abstract class PageObject {
     protected WebDriver driver;
+    protected Utils utils;
 
     public PageObject(WebDriver driver){
         this.driver = driver;
+        this.utils = new Utils(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -25,7 +28,7 @@ public abstract class PageObject {
             assert driver != null;
             return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
         };
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(pageLoadCondition);
     }
 
